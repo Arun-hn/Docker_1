@@ -15,6 +15,9 @@ Step 1 : Clone the repository
 
 Step 2: Move to directory where index.html present and edit index.html
         In place of localhost, use ec2-instance-public-ip
+
+        in service.js >> let mongoUrlDocker = "mongodb://admin:password@localhost:27017";
+        inplace of localhost use dockercontainer name as mongodb
         
 Step 3: Create Docker network
 
