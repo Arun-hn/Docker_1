@@ -1,0 +1,37 @@
+# clone repository
+
+git clone https://github.com/Arun-hn/Docker_1.git
+
+# pull mongo and mongo-express
+
+docker pull mongo
+docker pull mongo-express
+
+# to connect these containers , create docker network)
+They can talk to eachother with just a container name without local host or port number, 
+because they are in same network
+
+docker network ls
+docker network create mongo-network
+
+# run the containers
+
+docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodb --net mongo-network mongo    
+
+docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password --net mongo-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodb mongo-express  
+
+# Move to directory where index.html present and edit index.html 
+In place of localhost, use ec2-instance-public-ip
+Also edit service.js >> let mongoUrlDocker = "mongodb://admin:password@localhost:27017";
+in place of localhost use dockercontainer name as mongodb
+
+# build docker image  with use of docker image
+ 
+docker build -t app .
+
+# Run the container with built image
+
+docker run -d -p 3000:3000 --network=mongo-network  --name myapp app
+
+# check in browser
+public-ip:3000
