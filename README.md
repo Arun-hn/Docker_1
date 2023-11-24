@@ -1,4 +1,4 @@
-demo app - developing with Docker
+Demo app - Developing with Docker
 
 This demo app shows a simple user profile app set up using 
 - index.html with pure js and css styles
@@ -7,17 +7,15 @@ This demo app shows a simple user profile app set up using
 
 All components are docker-based
 
-### With Docker
-
 #### To start the application
 
 Step 1 : Clone the repository
-    git clone <repository URL>
 
+    git clone https://github.com/Arun-hn/Docker_1.git
 
 Step 2: Move to directory where index.html present and edit index.html
         In place of localhost, use ec2-instance-public-ip
-
+        
 Step 3: Create Docker network
 
     docker network create mongo-network 
@@ -32,18 +30,14 @@ Step 5: start mongo-express
 
 _NOTE: creating docker-network in optional. You can start both containers in a default network. In this case, just emit `--net` flag in `docker run` command_
 
-Step 5: open mongo-express from browser
 
-    http://public-ip:8081
+Step 5: To build a docker image from the application
 
-Step 5: create `user-account` _db_ and `users` _collection_ in mongo-express if not present
-
-Step 6: To build a docker image from the application
-
-    docker build -t my-app:1.0 .       
+    docker build -t my-app .       
     
 The dot "." at the end of the command denotes location of the Dockerfile
 
 
 Step 7 : Run the container 
-docker run -d -p 3000:3000 --network=mongo-network  --name app my-app
+
+    docker run -d -p 3000:3000 --network=mongo-network  --name app my-app
